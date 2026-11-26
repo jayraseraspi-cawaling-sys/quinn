@@ -1,0 +1,112 @@
+/* ===== Learn with Yella — styles =====
+   Design tokens: jungle teal, sun yellow, coral, sky blue, sand. */
+:root {
+  --jungle: #0E7C66;
+  --leaf: #3DBE6B;
+  --sun: #FFC93C;
+  --coral: #FF6B5B;
+  --sky: #6EC6FF;
+  --sand: #FFF1C9;
+  --ink: #1F3A34;
+  --tap-min: 120px;                /* minimum touch target for toddlers */
+  --radius: 36px;
+}
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; user-select: none; }
+html, body { height: 100%; margin: 0; overflow: hidden; touch-action: manipulation; }
+body {
+  font-family: "Baloo 2", "Comic Sans MS", "Trebuchet MS", system-ui, sans-serif;
+  color: var(--ink);
+  background: linear-gradient(180deg, var(--sky) 0%, #BDEBFF 45%, var(--leaf) 100%);
+}
+button { font: inherit; border: 0; cursor: pointer; color: inherit; }
+[hidden] { display: none !important; }
+
+/* ---- Decorative sky ---- */
+.sky { position: fixed; inset: 0; pointer-events: none; }
+.cloud { position: absolute; font-size: 90px; opacity: .85; animation: drift 40s linear infinite; }
+.c1 { top: 8%;  left: -15%; }
+.c2 { top: 22%; left: -15%; animation-duration: 55s; animation-delay: -20s; font-size: 120px; }
+.c3 { top: 4%;  left: -15%; animation-duration: 70s; animation-delay: -45s; }
+@keyframes drift { to { transform: translateX(130vw); } }
+
+/* ---- Layout ---- */
+main, .screen { position: fixed; inset: 0; }
+.screen { display: none; flex-direction: column; align-items: center; justify-content: center;
+  gap: 3vmin; padding: 14vmin 4vmin 4vmin; }
+.screen.active { display: flex; animation: pop-in .4s ease-out; }
+@keyframes pop-in { from { transform: scale(.92); opacity: 0; } }
+
+.topbar { position: fixed; top: 0; left: 0; right: 0; z-index: 5; display: flex;
+  justify-content: space-between; align-items: center; padding: 2vmin 3vmin; }
+.round-btn { width: 84px; height: 84px; border-radius: 50%; font-size: 42px;
+  background: #fff; box-shadow: 0 6px 0 rgba(0,0,0,.15); }
+.round-btn:active { transform: translateY(4px); box-shadow: 0 2px 0 rgba(0,0,0,.15); }
+.round-btn.off { opacity: .55; }
+.corner { position: fixed; top: 2vmin; right: 3vmin; z-index: 5; }
+.star-badge { background: var(--sun); border-radius: 50px; padding: 4px 26px; font-size: 44px;
+  box-shadow: 0 6px 0 rgba(0,0,0,.15); }
+.star-badge.bump { animation: bump .5s; }
+@keyframes bump { 50% { transform: scale(1.3) rotate(-6deg); } }
+
+/* ---- Art slots: <span class="art"> holds emoji until images/<key>.png loads ---- */
+.art { display: inline-flex; align-items: center; justify-content: center; line-height: 1; }
+.art img { width: 1em; height: 1em; object-fit: contain; }
+
+/* ---- Big tap buttons ---- */
+.grid { display: grid; gap: 3vmin; width: 100%; max-width: 980px; }
+.big { min-width: var(--tap-min); min-height: var(--tap-min); border-radius: var(--radius);
+  background: #fff; box-shadow: 0 10px 0 rgba(0,0,0,.18); font-size: clamp(64px, 14vmin, 130px);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  transition: transform .15s; }
+.big:active { transform: translateY(6px) scale(.97); box-shadow: 0 4px 0 rgba(0,0,0,.18); }
+.big.bounce { animation: jump .6s; }
+@keyframes jump { 30% { transform: translateY(-5vmin) scale(1.12) rotate(-4deg); } 60% { transform: scale(.95); } }
+
+/* ---- Welcome ---- */
+.yella { font-size: clamp(90px, 18vmin, 170px); animation: bob 2s ease-in-out infinite; }
+@keyframes bob { 50% { transform: translateY(-14px) rotate(4deg); } }
+#screen-welcome .grid { grid-template-columns: repeat(3, 1fr); }
+.avatar { font-size: clamp(70px, 15vmin, 130px); }
+.avatar:nth-child(odd) { background: #FFE4A0; } .avatar:nth-child(even) { background: #C9F2D6; }
+.lang-row { display: flex; gap: 3vmin; }
+.lang { width: 110px; height: 110px; border-radius: 50%; font-size: 58px; background: #fff;
+  box-shadow: 0 8px 0 rgba(0,0,0,.18); }
+.lang.sel { background: var(--sun); outline: 8px solid #fff; transform: scale(1.12); }
+
+/* ---- Map ---- */
+#screen-map { padding-top: 12vmin; }
+.map { position: relative; width: min(100%, 900px); height: 70vh; }
+.map svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.map path { fill: none; stroke: var(--sand); stroke-width: 22; stroke-linecap: round;
+  stroke-dasharray: 8 34; animation: march 3s linear infinite; }
+@keyframes march { to { stroke-dashoffset: -84; } }
+.dest { position: absolute; width: min(42vw, 340px); aspect-ratio: 1; border-radius: 50%;
+  font-size: clamp(60px, 13vmin, 120px); }
+.dest .row { display: flex; gap: 6px; font-size: .5em; }
+.dest.sounds { left: 2%; top: 4%; background: #FFD6D0; animation: bob 3s infinite; }
+.dest.numbers { right: 2%; bottom: 2%; background: #CFF5DA; animation: bob 3s .8s infinite; }
+.map .yella { position: absolute; left: 38%; top: 38%; font-size: clamp(70px, 14vmin, 130px); }
+
+/* ---- Sounds ---- */
+#screen-sounds .grid { grid-template-columns: repeat(3, 1fr); }
+.letter { position: relative; }
+.letter .ch { font-size: .5em; color: var(--coral); }
+.letter.done::after { content: "⭐"; position: absolute; top: 6px; right: 12px; font-size: 40px; animation: bump .6s; }
+
+/* ---- Numbers ---- */
+.counter { font-size: clamp(90px, 22vmin, 220px); color: var(--coral); min-height: 1.1em;
+  text-shadow: 0 8px 0 #fff; }
+.fruits { display: flex; flex-wrap: wrap; justify-content: center; gap: 3vmin; }
+.fruit.counted { background: var(--sun); transform: scale(.9); }
+
+/* ---- Effects ---- */
+#fx { position: fixed; inset: 0; pointer-events: none; z-index: 20; overflow: hidden; }
+.bit { position: absolute; font-size: 38px; animation: fall 1.4s ease-out forwards; }
+@keyframes fall { to { transform: translate(var(--dx), 70vh) rotate(540deg); opacity: 0; } }
+.banner { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center;
+  font-size: 40vmin; animation: banner 1.8s forwards; z-index: 21; pointer-events: none; }
+@keyframes banner { 0% { transform: scale(0); } 30% { transform: scale(1.1) rotate(8deg); } 80% { transform: scale(1); opacity: 1; } 100% { opacity: 0; } }
+
+/* Portrait phones: simpler grids */
+@media (max-width: 600px) { #screen-welcome .grid, #screen-sounds .grid { gap: 2vmin; } .round-btn { width: 68px; height: 68px; font-size: 34px; } }
+@media (prefers-reduced-motion: reduce) { .cloud, .yella, .dest, .map path { animation: none; } }
