@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- Tablet-friendly viewport; user-scalable off so toddler pinch/double-tap doesn't zoom -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>Learn with Yella</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Floating clouds (decorative, always on) -->
+  <div class="sky" aria-hidden="true">
+    <span class="cloud c1">☁️</span><span class="cloud c2">☁️</span><span class="cloud c3">☁️</span>
+  </div>
+
+  <!-- Top bar: icon-only controls (hidden on the welcome screen) -->
+  <header id="topbar" class="topbar" hidden>
+    <button id="btn-home" class="round-btn" aria-label="Back">🏠</button>
+    <div id="star-badge" class="star-badge" aria-label="Stars">⭐ <b id="star-count">0</b></div>
+    <button id="btn-music" class="round-btn" aria-label="Music on/off">🎵</button>
+  </header>
+
+  <!-- Parent/teacher music toggle is also available on the welcome screen -->
+  <button id="btn-music-welcome" class="round-btn corner" aria-label="Music on/off">🎵</button>
+
+  <main>
+    <!-- Screens are built by app.js so all content comes from data tables -->
+    <section id="screen-welcome" class="screen"></section>
+    <section id="screen-map" class="screen"></section>
+    <section id="screen-sounds" class="screen"></section>
+    <section id="screen-numbers" class="screen"></section>
+  </main>
+
+  <div id="fx" aria-hidden="true"></div>
+  <script src="app.js"></script>
+</body>
+</html>
